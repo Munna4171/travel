@@ -7,6 +7,9 @@ import {
 } from "../redux/user/userSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
+// Get backend URL from environment variable
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,7 +18,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  // console.log(formData);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,7 +30,7 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(loginStart());
-      const res = await fetch(`/api/auth/login`, {
+      const res = await fetch(`${backendUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
